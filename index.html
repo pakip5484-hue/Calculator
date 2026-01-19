@@ -11,5 +11,91 @@
         .dugmici { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
         button { padding: 18px; font-size: 18px; border-radius: 10px; border: none; cursor: pointer; background: #334155; color: white; }
         .op { background: #38bdf8; color: #020617; font-weight: bold; }
-        #tajni-meni { display: none; background: #0f172a; padding: 20px; border-radius: 20px; border: 2px solid #10b981; width: 320px
-                     
+        #tajni-meni { display: none; background: #0f172a; padding: 20px; border-radius: 20px; border: 2px solid #10b981; width: 320px; }
+        .meni-dugme { width: 100%; padding: 15px; margin: 10px 0; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; background: #1e293b; color: #38bdf8; border: 1px solid #38bdf8; }
+        .izlaz { background: #f43f5e !important; color: white !important; }
+    </style>
+</head>
+<body>
+
+    <div id="prikaz-calc" class="kalkulator">
+        <h3 style="color: #38bdf8; margin-top: 0;">SS CALCULATOR</h3>
+        <div id="ekran">0</div>
+        <div class="dugmici">
+            <button onclick="obrisi()" style="background:#f43f5e">C</button>
+            <button onclick="dodaj('/')" class="op">/</button>
+            <button onclick="dodaj('*')" class="op">*</button>
+            <button onclick="dodaj('-')" class="op">-</button>
+            <button onclick="dodaj('7')">7</button>
+            <button onclick="dodaj('8')">8</button>
+            <button onclick="dodaj('9')">9</button>
+            <button onclick="dodaj('+')" class="op">+</button>
+            <button onclick="dodaj('4')">4</button>
+            <button onclick="dodaj('5')">5</button>
+            <button onclick="dodaj('6')">6</button>
+            <button onclick="izracunaj()" class="op" style="background:#10b981; color:white;">=</button>
+            <button onclick="dodaj('1')">1</button>
+            <button onclick="dodaj('2')">2</button>
+            <button onclick="dodaj('3')">3</button>
+            <button onclick="dodaj('0')">0</button>
+        </div>
+    </div>
+
+    <div id="tajni-meni">
+        <h2 style="color: #10b981; text-align: center;">TAJNI MENI 🕵️‍♂️</h2>
+        <button class="meni-dugme" onclick="alert('Otvaram tajni trezor SS Studios...')">📂 TAJNE APLIKACIJE</button>
+        <button class="meni-dugme" onclick="zadajZadatak()">🧠 ZADAJ MI ZADATAK</button>
+        <button class="meni-dugme izlaz" onclick="izlaz()">🚪 IZAĐI</button>
+    </div>
+
+    <script>
+        let ekran = document.getElementById('ekran');
+        let unos = '';
+        const SIFRA = "4444"; // NOVA ŠIFRA JE SADA 4444
+
+        function dodaj(v) {
+            if (unos === '0') unos = '';
+            unos = unos + v;
+            ekran.innerText = unos;
+        }
+
+        function obrisi() {
+            unos = '';
+            ekran.innerText = '0';
+        }
+
+        function izracunaj() {
+            if (unos === SIFRA) {
+                document.getElementById('prikaz-calc').style.display = 'none';
+                document.getElementById('tajni-meni').style.display = 'block';
+            } else {
+                try {
+                    let rezultat = eval(unos);
+                    ekran.innerText = rezultat;
+                    unos = rezultat.toString();
+                } catch (e) {
+                    ekran.innerText = 'Greška';
+                    unos = '';
+                }
+            }
+        }
+
+        function izlaz() {
+            document.getElementById('tajni-meni').style.display = 'none';
+            document.getElementById('prikaz-calc').style.display = 'block';
+            obrisi();
+        }
+
+        function zadajZadatak() {
+            let b1 = Math.floor(Math.random() * 20);
+            let b2 = Math.floor(Math.random() * 20);
+            let odg = prompt("SS ZADATAK: Koliko je " + b1 + " + " + b2 + "?");
+            if (parseInt(odg) === (b1 + b2)) {
+                alert("Tačno! Ti si SS genije! 🏆");
+            } else {
+                alert("Netačno! Pokušaj ponovo. ❌");
+            }
+        }
+    </script>
+</body>
+</html>
